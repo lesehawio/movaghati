@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>فرم گزارش بازدید مرکز مشاوره | کارورزی ۱</title>
+
+<style>
+:root{
+    --bg:#f6f3f8;
+    --card:#ffffff;
+    --text:#28202d;
+    --muted:#756a7d;
+    --primary:#8c4f9e;
+    --primary2:#b978c5;
+    --soft:#f3e9f6;
+    --border:#e4d8e8;
+    --success:#43866a;
+    --danger:#b44c5b;
+    --shadow:0 12px 35px rgba(70,35,80,.09);
+}
+
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
+    line-height:1.8;
+}
+
+button,input,textarea,select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    max-width:1100px;
+    margin:auto;
+    padding:22px 15px 60px;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(135deg,#6f3b7e,#a965b1);
+    color:white;
+    border-radius:28px;
+    padding:28px;
+    box-shadow:var(--shadow);
+    margin-bottom:18px;
+}
+
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+}
+
+.header h1{
+    margin:0 0 6px;
+    font-size:27px;
+}
+
+.header p{
+    margin:0;
+    opacity:.88;
+}
+
+.status{
+    background:rgba(255,255,255,.15);
+    padding:8px 13px;
+    border-radius:30px;
+    white-space:nowrap;
+    font-size:13px;
+}
+
+/* PROGRESS */
+
+.progress-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:16px 20px;
+    margin-bottom:18px;
+    box-shadow:var(--shadow);
+}
+
+.progress-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.progress{
+    height:10px;
+    background:#eee7f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--primary),var(--primary2));
+    transition:.3s;
+}
+
+/* TOOLBAR */
+
+.toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:18px;
+}
+
+.btn{
+    border:1px solid var(--border);
+    background:white;
+    color:var(--text);
+    padding:9px 15px;
+    border-radius:12px;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+    border-color:var(--primary2);
+}
+
+.btn.primary{
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
+}
+
+.btn.success{
+    background:var(--success);
+    color:white;
+    border-color:var(--success);
+}
+
+.btn.danger{
+    color:var(--danger);
+}
+
+/* SECTIONS */
+
+.section{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:24px;
+    margin-bottom:18px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.section-head{
+    padding:17px 22px;
+    background:linear-gradient(to left,#fff,#faf5fb);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.section-number{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:var(--soft);
+    color:var(--primary);
+    font-weight:bold;
+}
+
+.section-head h2{
+    margin:0;
+    font-size:18px;
+}
+
+.section-body{
+    padding:22px;
+}
+
+/* FORM */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-weight:600;
+    font-size:14px;
+}
+
+.hint{
+    font-size:12px;
+    color:var(--muted);
+    font-weight:normal;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--text);
+    border-radius:12px;
+    padding:10px 12px;
+    outline:none;
+    transition:.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:var(--primary2);
+    box-shadow:0 0 0 3px rgba(185,120,197,.12);
+}
+
+textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+/* CHECKBOXES */
+
+.check-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+}
+
+.check{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid var(--border);
+    background:#fcfafd;
+    border-radius:11px;
+    padding:9px 11px;
+    cursor:pointer;
+}
+
+.check input{
+    width:auto;
+}
+
+/* SCALE */
+
+.rating{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.rating label{
+    border:1px solid var(--border);
+    padding:8px 13px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:500;
+}
+
+.rating input{
+    width:auto;
+}
+
+.rating label:has(input:checked){
+    background:var(--soft);
+    border-color:var(--primary2);
+    color:var(--primary);
+}
+
+/* REPORT PREVIEW */
+
+.preview{
+    background:#fffdfd;
+    border:1px dashed #cbb6d1;
+    border-radius:18px;
+    padding:20px;
+    min-height:160px;
+    white-space:pre-wrap;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .header-top{
+        flex-direction:column;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .check-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section-body{
+        padding:16px;
+    }
+
+    .header{
+        padding:22px;
+    }
+
+    .header h1{
+        font-size:22px;
+    }
+}
+
+/* PRINT */
+
+@media print{
+
+    body{
+        background:white;
+        font-size:12px;
+    }
+
+    .app{
+        max-width:none;
+        padding:0;
+    }
+
+    .header{
+        color:#000;
+        background:white !important;
+        border:2px solid #555;
+        box-shadow:none;
+    }
+
+    .toolbar,
+    .progress-box,
+    .status,
+    .footer{
+        display:none !important;
+    }
+
+    .section{
+        box-shadow:none;
+        break-inside:avoid;
+        margin-bottom:12px;
+    }
+
+    .section-head{
+        background:#eee !important;
+    }
+
+    input,
+    textarea,
+    select{
+        border:1px solid #aaa;
+    }
+
+    textarea{
+        min-height:70px;
+    }
+
+    .preview{
+        border:1px solid #aaa;
+    }
+
+    @page{
+        size:A4;
+        margin:15mm;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+    <div class="header-top">
+        <div>
+            <h1>📋 فرم گزارش بازدید مرکز مشاوره</h1>
+            <p>کارورزی ۱ · ابزار جمع‌آوری اطلاعات و مشاهدات</p>
+        </div>
+        <div class="status" id="saveStatus">
+            ● آماده ثبت اطلاعات
+        </div>
+    </div>
+</header>
+
+<div class="progress-box">
+    <div class="progress-row">
+        <span>میزان تکمیل فرم</span>
+        <strong id="progressText">۰٪</strong>
+    </div>
+
+    <div class="progress">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+</div>
+
+<div class="toolbar">
+
+    <button class="btn primary" onclick="saveData()">
+        💾 ذخیره
+    </button>
+
+    <button class="btn success" onclick="exportJSON()">
+        📦 خروجی JSON
+    </button>
+
+    <button class="btn" onclick="document.getElementById('jsonFile').click()">
+        📥 ورود JSON
+    </button>
+
+    <input
+        type="file"
+        id="jsonFile"
+        accept=".json"
+        style="display:none"
+        onchange="importJSON(event)"
+    >
+
+    <button class="btn" onclick="copyJSON()">
+        📋 کپی JSON
+    </button>
+
+    <button class="btn" onclick="window.print()">
+        🖨️ چاپ فرم
+    </button>
+
+    <button class="btn danger" onclick="clearForm()">
+        🗑️ پاک کردن
+    </button>
+
+</div>
+
+
+<form id="mainForm">
+
+<!-- 1 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۱</div>
+    <h2>🏢 مشخصات مرکز</h2>
+</div>
+
+<div class="section-body">
+
+<div class="grid">
+
+<div class="field">
+<label>نام مرکز</label>
+<input name="centerName">
+</div>
+
+<div class="field">
+<label>نوع مرکز</label>
+<select name="centerType">
+<option value="">انتخاب کنید</option>
+<option>مرکز مشاوره</option>
+<option>مرکز خدمات روان‌شناختی</option>
+<option>مرکز دولتی</option>
+<option>مرکز خصوصی</option>
+<option>سایر</option>
+</select>
+</div>
+
+<div class="field">
+<label>تاریخ بازدید</label>
+<input type="date" name="visitDate">
+</div>
+
+<div class="field">
+<label>ساعت حضور</label>
+<input name="visitTime" placeholder="مثلاً ۱۰ تا ۱۲">
+</div>
+
+<div class="field full">
+<label>آدرس مرکز</label>
+<input name="address">
+</div>
+
+<div class="field">
+<label>نام مدیر / مسئول مرکز</label>
+<input name="manager">
+</div>
+
+<div class="field">
+<label>شماره تماس مرکز</label>
+<input name="phone">
+</div>
+
+<div class="field full">
+<label>سابقه فعالیت مرکز</label>
+<textarea name="history"></textarea>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- 2 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۲</div>
+    <h2>👩‍⚕️ نیروی انسانی و متخصصان</h2>
+</div>
+
+<div class="section-body">
+
+<div class="grid">
+
+<div class="field">
+<label>تعداد روان‌شناسان</label>
+<input name="psychologists" type="number">
+</div>
+
+<div class="field">
+<label>تعداد مشاوران</label>
+<input name="counselors" type="number">
+</div>
+
+<div class="field full">
+<label>تخصص‌ها / حوزه‌های فعالیت متخصصان</label>
+<textarea name="specialties"
+placeholder="مثلاً کودک، خانواده، فردی، اختلالات اضطرابی و ..."></textarea>
+</div>
+
+<div class="field full">
+<label>توضیحات درباره ساختار نیروی انسانی</label>
+<textarea name="staffNotes"></textarea>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- 3 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۳</div>
+    <h2>🧩 بخش‌ها و امکانات مرکز</h2>
+</div>
+
+<div class="section-body">
+
+<label>فضاها / امکانات موجود</label>
+
+<div class="check-grid">
+
+<label class="check">
+<input type="checkbox" name="facilities" value="پذیرش">
+پذیرش
+</label>
+
+<label class="check">
+<input type="checkbox" name="facilities" value="اتاق انتظار">
+اتاق انتظار
+</label>
+
+<label class="check">
+<input type="checkbox" name="facilities" value="اتاق مشاوره">
+اتاق مشاوره
+</label>
+
+<label class="check">
+<input type="checkbox" name="facilities" value="اتاق بازی کودک">
+اتاق بازی کودک
+</label>
+
+<label class="check">
+<input type="checkbox" name="facilities" value="اتاق آزمون">
+اتاق آزمون
+</label>
+
+<label class="check">
+<input type="checkbox" name="facilities" value="سالن گروهی">
+سالن گروهی
+</label>
+
+<label class="check">
+<input type="checkbox" name="facilities" value="کتابخانه">
+کتابخانه
+</label>
+
+<label class="check">
+<input type="checkbox" name="facilities" value="سایر">
+سایر
+</label>
+
+</div>
+
+<br>
+
+<div class="field">
+<label>توصیف فضای فیزیکی</label>
+<textarea name="environment"
+placeholder="اندازه، نظم، آرامش، نور، حریم خصوصی و ..."></textarea>
+</div>
+
+</div>
+</section>
+
+
+<!-- 4 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۴</div>
+    <h2>📚 خدمات مرکز</h2>
+</div>
+
+<div class="section-body">
+
+<label>خدمات ارائه‌شده</label>
+
+<div class="check-grid">
+
+<label class="check">
+<input type="checkbox" name="services" value="مشاوره فردی">
+مشاوره فردی
+</label>
+
+<label class="check">
+<input type="checkbox" name="services" value="مشاوره زوج">
+مشاوره زوج
+</label>
+
+<label class="check">
+<input type="checkbox" name="services" value="مشاوره خانواده">
+مشاوره خانواده
+</label>
+
+<label class="check">
+<input type="checkbox" name="services" value="کودک و نوجوان">
+کودک و نوجوان
+</label>
+
+<label class="check">
+<input type="checkbox" name="services" value="آزمون روان‌شناختی">
+آزمون روان‌شناختی
+</label>
+
+<label class="check">
+<input type="checkbox" name="services" value="مشاوره تحصیلی">
+مشاوره تحصیلی
+</label>
+
+<label class="check">
+<input type="checkbox" name="services" value="کارگاه آموزشی">
+کارگاه آموزشی
+</label>
+
+<label class="check">
+<input type="checkbox" name="services" value="مشاوره آنلاین">
+مشاوره آنلاین
+</label>
+
+</div>
+
+<br>
+
+<div class="field">
+<label>سایر خدمات / توضیحات</label>
+<textarea name="serviceNotes"></textarea>
+</div>
+
+</div>
+</section>
+
+
+<!-- 5 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۵</div>
+    <h2>📞 نحوه پذیرش و ارجاع مراجع</h2>
+</div>
+
+<div class="section-body">
+
+<div class="grid">
+
+<div class="field">
+<label>روش‌های نوبت‌دهی</label>
+<textarea name="appointment"></textarea>
+</div>
+
+<div class="field">
+<label>روند پذیرش اولیه</label>
+<textarea name="intake"></textarea>
+</div>
+
+<div class="field full">
+<label>روند ارجاع مراجع به متخصص</label>
+<textarea name="referral"></textarea>
+</div>
+
+<div class="field full">
+<label>آیا ارزیابی اولیه انجام می‌شود؟</label>
+
+<div class="rating">
+
+<label>
+<input type="radio" name="initialAssessment" value="بله">
+بله
+</label>
+
+<label>
+<input type="radio" name="initialAssessment" value="خیر">
+خیر
+</label>
+
+<label>
+<input type="radio" name="initialAssessment" value="نامشخص">
+نامشخص
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- 6 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۶</div>
+    <h2>👀 مشاهدات کارآموز</h2>
+</div>
+
+<div class="section-body">
+
+<div class="field">
+
+<label>
+مشاهدات مستقیم
+<span class="hint">
+فقط چیزهایی که شخصاً مشاهده یا از مسئول مرکز دریافت کردی.
+</span>
+</label>
+
+<textarea
+name="observations"
+style="min-height:180px"
+placeholder="هر چیزی که در محیط مرکز مشاهده کردی اینجا یادداشت کن..."></textarea>
+
+</div>
+
+<br>
+
+<div class="field">
+
+<label>نکات مهمی که یاد گرفتم</label>
+
+<textarea
+name="learning"
+style="min-height:150px"></textarea>
+
+</div>
+
+<br>
+
+<div class="field">
+
+<label>سؤالاتی که برایم ایجاد شد</label>
+
+<textarea
+name="questions"
+style="min-height:120px"></textarea>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- 7 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۷</div>
+    <h2>🎓 ارتباط با کارورزی و رشته روان‌شناسی</h2>
+</div>
+
+<div class="section-body">
+
+<div class="field">
+
+<label>چه چیزهایی از فعالیت مرکز با مطالب دانشگاهی مرتبط بود؟</label>
+
+<textarea
+name="academicConnection"
+style="min-height:150px"></textarea>
+
+</div>
+
+<br>
+
+<div class="field">
+
+<label>مهارت‌ها / رفتارهای حرفه‌ای مشاهده‌شده</label>
+
+<textarea
+name="professionalSkills"
+style="min-height:150px"
+placeholder="نحوه ارتباط با مراجع، رعایت حریم خصوصی، مصاحبه، گوش دادن و ..."></textarea>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- 8 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۸</div>
+    <h2>⚖️ اصول حرفه‌ای و اخلاقی</h2>
+</div>
+
+<div class="section-body">
+
+<label>موارد مشاهده‌شده</label>
+
+<div class="check-grid">
+
+<label class="check">
+<input type="checkbox" name="ethics" value="حفظ محرمانگی">
+حفظ محرمانگی
+</label>
+
+<label class="check">
+<input type="checkbox" name="ethics" value="رعایت حریم خصوصی">
+رعایت حریم خصوصی
+</label>
+
+<label class="check">
+<input type="checkbox" name="ethics" value="احترام به مراجع">
+احترام به مراجع
+</label>
+
+<label class="check">
+<input type="checkbox" name="ethics" value="رعایت مرز حرفه‌ای">
+رعایت مرز حرفه‌ای
+</label>
+
+<label class="check">
+<input type="checkbox" name="ethics" value="ارجاع مناسب">
+ارجاع مناسب
+</label>
+
+<label class="check">
+<input type="checkbox" name="ethics" value="نامشخص">
+نامشخص
+</label>
+
+</div>
+
+<br>
+
+<div class="field">
+<label>توضیحات</label>
+<textarea name="ethicsNotes"></textarea>
+</div>
+
+</div>
+</section>
+
+
+<!-- 9 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۹</div>
+    <h2>⭐ ارزیابی کلی بازدید</h2>
+</div>
+
+<div class="section-body">
+
+<div class="field">
+
+<label>ارزیابی کلی من از مرکز</label>
+
+<div class="rating">
+
+<label>
+<input type="radio" name="rating" value="عالی">
+عالی
+</label>
+
+<label>
+<input type="radio" name="rating" value="خوب">
+خوب
+</label>
+
+<label>
+<input type="radio" name="rating" value="متوسط">
+متوسط
+</label>
+
+<label>
+<input type="radio" name="rating" value="ضعیف">
+ضعیف
+</label>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="field">
+<label>نقاط قوت مشاهده‌شده</label>
+<textarea name="strengths"></textarea>
+</div>
+
+<br>
+
+<div class="field">
+<label>نقاط قابل بهبود / نکات قابل توجه</label>
+<textarea name="improvements"></textarea>
+</div>
+
+</div>
+</section>
+
+
+<!-- 10 -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">۱۰</div>
+    <h2>📝 جمع‌بندی نهایی</h2>
+</div>
+
+<div class="section-body">
+
+<div class="field">
+
+<label>
+جمع‌بندی آزاد
+<span class="hint">
+لازم نیست رسمی باشد؛ بعداً می‌توانی آن را به گزارش دانشگاه تبدیل کنی.
+</span>
+</label>
+
+<textarea
+name="summary"
+style="min-height:220px"
+placeholder="در پایان بازدید، مهم‌ترین برداشت خود را بنویس..."></textarea>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- PREVIEW -->
+
+<section class="section">
+
+<div class="section-head">
+    <div class="section-number">✓</div>
+    <h2>📄 پیش‌نمایش گزارش</h2>
+</div>
+
+<div class="section-body">
+
+<div class="preview" id="preview">
+هنوز اطلاعاتی ثبت نشده است.
+</div>
+
+<br>
+
+<button
+type="button"
+class="btn primary"
+onclick="generateReport()">
+✨ ساخت پیش‌نمایش گزارش
+</button>
+
+</div>
+</section>
+
+</form>
+
+<div class="footer">
+    فرم گزارش بازدید مرکز مشاوره · کارورزی ۱
+    <br>
+    اطلاعات مراجعان را ثبت نکنید.
+</div>
+
+</div>
+
+
+<script>
+
+const form = document.getElementById("mainForm");
+const saveStatus = document.getElementById("saveStatus");
+
+
+// ===============================
+// HELPERS
+// ===============================
+
+function getFormData(){
+
+    const data = {};
+
+    const elements = form.querySelectorAll(
+        "input, textarea, select"
+    );
+
+    elements.forEach(el=>{
+
+        if(!el.name) return;
+
+        if(el.type === "checkbox"){
+
+            if(!data[el.name])
+                data[el.name] = [];
+
+            if(el.checked)
+                data[el.name].push(el.value);
+
+        }
+
+        else if(el.type === "radio"){
+
+            if(el.checked)
+                data[el.name] = el.value;
+
+        }
+
+        else{
+
+            data[el.name] = el.value;
+
+        }
+
+    });
+
+    data._meta = {
+        title:"فرم گزارش بازدید مرکز مشاوره",
+        course:"کارورزی ۱",
+        savedAt:new Date().toISOString(),
+        version:"1.0"
+    };
+
+    return data;
+}
+
+
+function setFormData(data){
+
+    Object.keys(data).forEach(name=>{
+
+        if(name === "_meta") return;
+
+        const elements =
+            form.querySelectorAll(
+                `[name="${CSS.escape(name)}"]`
+            );
+
+        if(!elements.length) return;
+
+        elements.forEach(el=>{
+
+            if(el.type === "checkbox"){
+
+                el.checked =
+                    Array.isArray(data[name]) &&
+                    data[name].includes(el.value);
+
+            }
+
+            else if(el.type === "radio"){
+
+                el.checked =
+                    data[name] === el.value;
+
+            }
+
+            else{
+
+                el.value = data[name] ?? "";
+
+            }
+
+        });
+
+    });
+
+    updateProgress();
+}
+
+
+// ===============================
+// SAVE
+// ===============================
+
+function saveData(){
+
+    const data = getFormData();
+
+    localStorage.setItem(
+        "internship_center_report",
+        JSON.stringify(data)
+    );
+
+    saveStatus.textContent =
+        "● ذخیره شد · " +
+        new Date().toLocaleTimeString("fa-IR");
+
+}
+
+
+// ===============================
+// AUTO SAVE
+// ===============================
+
+let autoSaveTimer;
+
+form.addEventListener("input", ()=>{
+
+    clearTimeout(autoSaveTimer);
+
+    autoSaveTimer = setTimeout(()=>{
+        saveData();
+    },500);
+
+    updateProgress();
+
+});
+
+form.addEventListener("change", ()=>{
+
+    saveData();
+    updateProgress();
+
+});
+
+
+// ===============================
+// LOAD
+// ===============================
+
+function loadSaved(){
+
+    const saved =
+        localStorage.getItem(
+            "internship_center_report"
+        );
+
+    if(!saved) return;
+
+    try{
+
+        setFormData(JSON.parse(saved));
+
+        saveStatus.textContent =
+            "● اطلاعات قبلی بازیابی شد";
+
+    }catch(e){
+
+        console.error(e);
+
+    }
+
+}
+
+
+// ===============================
+// PROGRESS
+// ===============================
+
+function updateProgress(){
+
+    const elements =
+        form.querySelectorAll(
+            "input:not([type=radio]):not([type=checkbox]), textarea, select"
+        );
+
+    let filled = 0;
+    let total = elements.length;
+
+    elements.forEach(el=>{
+
+        if(el.value.trim() !== "")
+            filled++;
+
+    });
+
+    // checkbox groups
+    const checkboxNames =
+        [...new Set(
+            [...form.querySelectorAll(
+                "input[type=checkbox]"
+            )].map(x=>x.name)
+        )];
+
+    checkboxNames.forEach(name=>{
+
+        total++;
+
+        const checked =
+            form.querySelectorAll(
+                `input[name="${CSS.escape(name)}"]:checked`
+            ).length;
+
+        if(checked) filled++;
+
+    });
+
+    // radio groups
+    const radioNames =
+        [...new Set(
+            [...form.querySelectorAll(
+                "input[type=radio]"
+            )].map(x=>x.name)
+        )];
+
+    radioNames.forEach(name=>{
+
+        total++;
+
+        if(
+            form.querySelector(
+                `input[name="${CSS.escape(name)}"]:checked`
+            )
+        ) filled++;
+
+    });
+
+    const percent =
+        total ?
+        Math.round((filled/total)*100) :
+        0;
+
+    document.getElementById("progressFill")
+        .style.width = percent + "%";
+
+    document.getElementById("progressText")
+        .textContent = percent + "٪";
+
+}
+
+
+// ===============================
+// EXPORT JSON
+// ===============================
+
+function exportJSON(){
+
+    const data = getFormData();
+
+    const blob =
+        new Blob(
+            [JSON.stringify(data,null,2)],
+            {type:"application/json;charset=utf-8"}
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    const date =
+        new Date()
+        .toISOString()
+        .slice(0,10);
+
+    a.download =
+        `karvarzi-1-report-${date}.json`;
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+// ===============================
+// COPY JSON
+// ===============================
+
+async function copyJSON(){
+
+    const json =
+        JSON.stringify(
+            getFormData(),
+            null,
+            2
+        );
+
+    try{
+
+        await navigator.clipboard.writeText(json);
+
+        saveStatus.textContent =
+            "● JSON کپی شد";
+
+    }catch{
+
+        alert(
+            "کپی خودکار توسط مرورگر اجازه داده نشد."
+        );
+
+    }
+
+}
+
+
+// ===============================
+// IMPORT JSON
+// ===============================
+
+function importJSON(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+    const reader =
+        new FileReader();
+
+    reader.onload = ()=>{
+
+        try{
+
+            const data =
+                JSON.parse(reader.result);
+
+            setFormData(data);
+
+            saveData();
+
+            alert(
+                "اطلاعات با موفقیت وارد شد."
+            );
+
+        }catch{
+
+            alert(
+                "فایل JSON معتبر نیست."
+            );
+
+        }
+
+    };
+
+    reader.readAsText(file);
+
+    event.target.value = "";
+
+}
+
+
+// ===============================
+// CLEAR
+// ===============================
+
+function clearForm(){
+
+    const ok =
+        confirm(
+            "همه اطلاعات فرم پاک شود؟"
+        );
+
+    if(!ok) return;
+
+    form.reset();
+
+    localStorage.removeItem(
+        "internship_center_report"
+    );
+
+    document.getElementById("preview")
+        .textContent =
+        "هنوز اطلاعاتی ثبت نشده است.";
+
+    saveStatus.textContent =
+        "● فرم پاک شد";
+
+    updateProgress();
+
+}
+
+
+// ===============================
+// REPORT GENERATOR
+// ===============================
+
+function v(name){
+
+    const el =
+        form.querySelector(
+            `[name="${CSS.escape(name)}"]`
+        );
+
+    return el ? el.value.trim() : "";
+
+}
+
+
+function checked(name){
+
+    return [...form.querySelectorAll(
+        `input[name="${CSS.escape(name)}"]:checked`
+    )].map(x=>x.value).join("، ");
+
+}
+
+
+function generateReport(){
+
+    const center = v("centerName") || "مرکز مشاوره";
+    const date = v("visitDate") || "—";
+
+    const report =
+
+`گزارش بازدید از مرکز مشاوره
+کارورزی ۱
+
+۱. مشخصات مرکز
+نام مرکز: ${center}
+نوع مرکز: ${v("centerType") || "—"}
+تاریخ بازدید: ${date}
+ساعت حضور: ${v("visitTime") || "—"}
+آدرس: ${v("address") || "—"}
+مسئول مرکز: ${v("manager") || "—"}
+
+۲. سابقه فعالیت
+${v("history") || "اطلاعاتی ثبت نشده است."}
+
+۳. نیروی انسانی و تخصص‌ها
+تعداد روان‌شناسان: ${v("psychologists") || "—"}
+تعداد مشاوران: ${v("counselors") || "—"}
+
+حوزه‌های تخصصی:
+${v("specialties") || "اطلاعاتی ثبت نشده است."}
+
+۴. امکانات و فضای مرکز
+امکانات:
+${checked("facilities") || "اطلاعاتی ثبت نشده است."}
+
+توصیف فضای مرکز:
+${v("environment") || "اطلاعاتی ثبت نشده است."}
+
+۵. خدمات
+${checked("services") || "اطلاعاتی ثبت نشده است."}
+
+توضیحات:
+${v("serviceNotes") || "—"}
+
+۶. نحوه پذیرش و ارجاع
+نوبت‌دهی:
+${v("appointment") || "—"}
+
+پذیرش اولیه:
+${v("intake") || "—"}
+
+ارجاع:
+${v("referral") || "—"}
+
+ارزیابی اولیه:
+${v("initialAssessment") || "—"}
+
+۷. مشاهدات کارآموز
+${v("observations") || "اطلاعاتی ثبت نشده است."}
+
+۸. نکات آموخته‌شده
+${v("learning") || "اطلاعاتی ثبت نشده است."}
+
+۹. ارتباط با مطالب دانشگاهی
+${v("academicConnection") || "اطلاعاتی ثبت نشده است."}
+
+۱۰. رفتارهای حرفه‌ای و اخلاقی
+${checked("ethics") || "اطلاعاتی ثبت نشده است."}
+
+توضیحات:
+${v("ethicsNotes") || "—"}
+
+۱۱. ارزیابی کلی
+${v("rating") || "—"}
+
+نقاط قوت:
+${v("strengths") || "—"}
+
+موارد قابل بهبود:
+${v("improvements") || "—"}
+
+۱۲. جمع‌بندی نهایی
+${v("summary") || "اطلاعاتی ثبت نشده است."}
+`;
+
+    document.getElementById("preview")
+        .textContent = report;
+
+}
+
+
+// ===============================
+// INIT
+// ===============================
+
+loadSaved();
+updateProgress();
+
+</script>
+
+</body>
+</html>

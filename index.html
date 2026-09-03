@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوت عاشقانه | عباس جانم</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            background: #1a0e14;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* پس‌زمینه عاشقانه */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(200, 70, 120, 0.30) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(230, 100, 150, 0.20) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(180, 50, 90, 0.15) 0%, transparent 45%),
+                linear-gradient(165deg, #1a0e14 0%, #2d1520 35%, #1f0f16 70%, #1a0e14 100%);
+            z-index: 0;
+        }
+
+        /* ذرات شناور */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatParticle 20s infinite alternate ease-in-out;
+        }
+
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            top: 10%;
+            left: 5%;
+            background: radial-gradient(circle, rgba(255, 200, 200, 0.8), rgba(255, 150, 150, 0.1));
+            box-shadow: 0 0 18px rgba(255, 180, 180, 0.2);
+            animation-duration: 24s;
+        }
+        .particle:nth-child(2) {
+            width: 3px;
+            height: 3px;
+            top: 25%;
+            right: 6%;
+            background: radial-gradient(circle, rgba(255, 180, 200, 0.7), rgba(200, 100, 150, 0.1));
+            box-shadow: 0 0 14px rgba(255, 180, 200, 0.15);
+            animation-duration: 26s;
+            animation-delay: 2s;
+        }
+        .particle:nth-child(3) {
+            width: 5px;
+            height: 5px;
+            bottom: 30%;
+            left: 3%;
+            background: radial-gradient(circle, rgba(255, 210, 190, 0.8), rgba(255, 160, 140, 0.1));
+            box-shadow: 0 0 20px rgba(255, 200, 180, 0.2);
+            animation-duration: 22s;
+            animation-delay: 4s;
+        }
+        .particle:nth-child(4) {
+            width: 3px;
+            height: 3px;
+            bottom: 15%;
+            right: 5%;
+            background: radial-gradient(circle, rgba(255, 190, 210, 0.7), rgba(200, 120, 180, 0.1));
+            box-shadow: 0 0 16px rgba(255, 190, 210, 0.15);
+            animation-duration: 28s;
+            animation-delay: 1s;
+        }
+        .particle:nth-child(5) {
+            width: 3px;
+            height: 3px;
+            top: 50%;
+            left: 14%;
+            background: radial-gradient(circle, rgba(255, 220, 200, 0.6), rgba(255, 170, 150, 0.1));
+            box-shadow: 0 0 14px rgba(255, 220, 200, 0.12);
+            animation-duration: 25s;
+            animation-delay: 3s;
+        }
+        .particle:nth-child(6) {
+            width: 2px;
+            height: 2px;
+            top: 60%;
+            right: 12%;
+            background: radial-gradient(circle, rgba(255, 200, 220, 0.7), rgba(200, 130, 180, 0.1));
+            box-shadow: 0 0 16px rgba(255, 200, 220, 0.15);
+            animation-duration: 21s;
+            animation-delay: 5s;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            25% { transform: translate(25px, -35px) scale(1.5); opacity: 0.65; }
+            50% { transform: translate(-18px, 25px) scale(0.7); opacity: 0.2; }
+            75% { transform: translate(12px, -18px) scale(1.3); opacity: 0.55; }
+            100% { transform: translate(-8px, 8px) scale(1); opacity: 0.15; }
+        }
+
+        /* حلقه‌های نور */
+        .glow-rings {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 150, 180, 0.04);
+            animation: pulseRing 16s infinite alternate ease-in-out;
+        }
+
+        .ring:nth-child(1) {
+            width: 350px;
+            height: 350px;
+            top: -100px;
+            right: -100px;
+            border-width: 2px;
+            border-color: rgba(255, 130, 170, 0.03);
+            animation-duration: 18s;
+        }
+        .ring:nth-child(2) {
+            width: 480px;
+            height: 480px;
+            bottom: -140px;
+            left: -140px;
+            border-width: 1.5px;
+            border-color: rgba(200, 100, 150, 0.03);
+            animation-duration: 22s;
+        }
+        .ring:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-width: 1px;
+            border-color: rgba(255, 180, 200, 0.03);
+            animation-duration: 14s;
+        }
+
+        @keyframes pulseRing {
+            0% { transform: scale(0.95) rotate(0deg); opacity: 0.15; }
+            50% { transform: scale(1.06) rotate(5deg); opacity: 0.4; }
+            100% { transform: scale(0.95) rotate(-5deg); opacity: 0.15; }
+        }
+
+        /* کارت اصلی - کوچک‌تر و جمع‌وجور */
+        .card {
+            max-width: 460px;
+            width: 100%;
+            background: rgba(26, 14, 20, 0.80);
+            backdrop-filter: blur(40px) saturate(1.3);
+            -webkit-backdrop-filter: blur(40px) saturate(1.3);
+            border-radius: 40px;
+            padding: 32px 30px 36px;
+            border: 1px solid rgba(255, 200, 210, 0.07);
+            box-shadow:
+                0 40px 100px rgba(0, 0, 0, 0.6),
+                0 15px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04),
+                0 0 50px rgba(180, 50, 90, 0.03);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 50px 120px rgba(0, 0, 0, 0.7),
+                0 20px 50px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 0 70px rgba(180, 50, 90, 0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 30%;
+            right: 30%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 170, 190, 0.20), rgba(255, 200, 220, 0.35), rgba(255, 170, 190, 0.20), transparent);
+            border-radius: 100%;
+            filter: blur(1px);
+        }
+
+        /* آیکون قلب - فقط ایموجی */
+        .icon-emoji {
+            font-size: 42px;
+            display: block;
+            margin-bottom: 10px;
+            animation: heartbeat 2s infinite;
+            line-height: 1;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.15); }
+            70% { transform: scale(1); }
+        }
+
+        /* تایپوگرافی کوچک‌تر */
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-style: italic;
+            font-size: 26px;
+            color: #f0d8e0;
+            margin-bottom: 2px;
+            letter-spacing: -0.3px;
+            text-shadow: 0 2px 16px rgba(180, 50, 90, 0.08);
+        }
+
+        .sub {
+            color: rgba(200, 165, 180, 0.30);
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 200, 210, 0.04);
+            padding-bottom: 12px;
+            display: inline-block;
+        }
+
+        /* متن دعوت - کوچک‌تر */
+        .invite-message {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 16px;
+            color: #e6ccd6;
+            line-height: 1.9;
+            margin-bottom: 24px;
+            padding: 16px 20px;
+            background: rgba(255, 200, 210, 0.02);
+            border-radius: 24px;
+            border-left: 2px solid rgba(255, 170, 190, 0.06);
+            border-right: 2px solid rgba(255, 170, 190, 0.06);
+            position: relative;
+            letter-spacing: 0.2px;
+        }
+
+        .invite-message .name {
+            color: #f0d0dc;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .invite-message .name::after {
+            content: ' ♥';
+            color: rgba(200, 100, 140, 0.25);
+            font-size: 15px;
+            font-style: normal;
+        }
+
+        .invite-message .line {
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(220, 185, 200, 0.7);
+            line-height: 1.8;
+        }
+
+        .invite-message .highlight {
+            color: #e8c8d4;
+            font-weight: 400;
+            font-style: italic;
+            border-bottom: 1px solid rgba(255, 170, 190, 0.08);
+            padding-bottom: 2px;
+        }
+
+        .invite-message .waiting {
+            display: block;
+            margin-top: 8px;
+            font-size: 15px;
+            color: rgba(220, 180, 200, 0.45);
+            letter-spacing: 0.5px;
+        }
+
+        /* دکمه کپی - با ایموجی‌های قلب، جزیره من و بوس */
+        .copy-btn {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 36px;
+            background: linear-gradient(135deg, rgba(200, 80, 130, 0.22), rgba(160, 50, 90, 0.12));
+            color: #f0d8e0;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 200, 210, 0.08);
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 60%);
+            pointer-events: none;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 180, 200, 0.18);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            background: linear-gradient(135deg, rgba(200, 80, 130, 0.32), rgba(160, 50, 90, 0.20));
+        }
+
+        .copy-btn:active {
+            transform: scale(0.97);
+        }
+
+        .copy-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: #e8c0d0;
+            stroke-width: 1.8;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .copy-btn .emoji-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .copy-btn .emoji-group .heart-beat {
+            animation: heartbeat 1.8s infinite;
+            display: inline-block;
+        }
+
+        .copy-btn .kiss {
+            display: inline-block;
+            animation: kissFloat 2.5s infinite ease-in-out;
+            font-size: 18px;
+        }
+
+        @keyframes kissFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.1); }
+        }
+
+        .copy-btn .island {
+            display: inline-block;
+            animation: islandFloat 3s infinite ease-in-out;
+        }
+
+        @keyframes islandFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-2px) rotate(3deg); }
+        }
+
+        /* پیام کپی */
+        .toast {
+            margin-top: 16px;
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(210, 180, 195, 0.65);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 6px 20px;
+            border-radius: 32px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 200, 210, 0.04);
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.3s ease;
+            transform: translateY(8px);
+            letter-spacing: 0.5px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* فوتر */
+        .footer-note {
+            margin-top: 20px;
+            font-size: 9px;
+            color: rgba(200, 165, 180, 0.10);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 18px 28px;
+                border-radius: 32px;
+            }
+            .title {
+                font-size: 22px;
+            }
+            .icon-emoji {
+                font-size: 36px;
+            }
+            .invite-message {
+                font-size: 14px;
+                padding: 14px 16px;
+                line-height: 1.8;
+            }
+            .invite-message .name {
+                font-size: 16px;
+            }
+            .invite-message .line {
+                font-size: 13px;
+            }
+            .invite-message .waiting {
+                font-size: 14px;
+            }
+            .copy-btn {
+                font-size: 13px;
+                padding: 12px 18px;
+                gap: 8px;
+            }
+            .copy-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+            .copy-btn .emoji-group {
+                font-size: 17px;
+                gap: 6px;
+            }
+            .copy-btn .kiss {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- پس‌زمینه -->
+    <div class="bg-gradient"></div>
+
+    <!-- ذرات -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- حلقه‌ها -->
+    <div class="glow-rings">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+    </div>
+
+    <!-- کارت اصلی -->
+    <div class="card">
+
+        <!-- آیکون قلب با ایموجی -->
+        <span class="icon-emoji">❤️</span>
+
+        <!-- عنوان -->
+        <h1 class="title">برای تو</h1>
+        <div class="sub">✦ یک دعوت ویژه ✦</div>
+
+        <!-- متن دعوت -->
+        <div class="invite-message">
+            <span class="name">عباس جانم</span>
+            <span class="line">بیا یه سر داخل <span class="highlight">اولوید</span>...</span>
+            <span class="line">دلم می‌خواد تو هم وارد این دنیایی بشی که یه گوشه‌اش رو برای خودمون نگه داشتم.</span>
+            <span class="waiting">منتظرتم اینجا ♥</span>
+        </div>
+
+        <!-- دکمه کپی با ایموجی‌های قلب، جزیره من و بوس -->
+        <button class="copy-btn" id="copyBtn">
+            <svg viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" fill="none"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" fill="none"/>
+            </svg>
+            <span>کپی لینک دعوت</span>
+            <span class="emoji-group">
+                <span class="heart-beat">❤️</span>
+                <span class="island">🇮🇲</span>
+                <span class="kiss">💋</span>
+            </span>
+        </button>
+
+        <!-- پیام کپی -->
+        <div class="toast" id="toastMessage">✨ لینک کپی شد! ❤️🇮🇲💋</div>
+
+        <!-- فوتر -->
+        <div class="footer-note">✦ با عشق ✦</div>
+    </div>
+
+    <script>
+        (function() {
+            const LINK = "https://invitation.olvid.io/#AwAAAGcAAAAAWmh0dHBzOi8vc2VydmVyLm9sdmlkLmlvAABNr94IZ8tUMHhxNT3IuzaP0StqaeJXvjOzPDepCMrpWQEwmx1FkTSurZQBo0_mPVtHKeYAC5HCkP8sUXRIMEZrAgAAAAADbWhh";
+
+            const copyBtn = document.getElementById('copyBtn');
+            const toast = document.getElementById('toastMessage');
+
+            function copyLink() {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(LINK)
+                        .then(() => showToast('✨ لینک کپی شد! ❤️🇮🇲💋'))
+                        .catch(() => fallbackCopy(LINK));
+                } else {
+                    fallbackCopy(LINK);
+                }
+            }
+
+            function fallbackCopy(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    const success = document.execCommand('copy');
+                    showToast(success ? '✨ لینک کپی شد! ❤️🇮🇲💋' : '❌ خطا');
+                } catch (e) {
+                    showToast('❌ خطا');
+                }
+                document.body.removeChild(textarea);
+            }
+
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                clearTimeout(toast._timer);
+                toast._timer = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2500);
+            }
+
+            copyBtn.addEventListener('click', copyLink);
+        })();
+    </script>
+</body>
+</html>

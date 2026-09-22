@@ -2,225 +2,284 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوت به Olvid</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Olvid</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Vazirmatn', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
         }
 
         body {
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
+            background: radial-gradient(circle at 50% 40%, #1a1a2e 0%, #0a0a15 60%, #000000 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            position: relative;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 40px 30px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* ذرات نورانی پس‌زمینه */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
             border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: floatBg 8s ease-in-out infinite;
+        }
+
+        body::before {
+            width: 300px;
+            height: 300px;
+            background: #667eea;
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            width: 350px;
+            height: 350px;
+            background: #764ba2;
+            bottom: -120px;
+            right: -120px;
+            animation-delay: -4s;
+        }
+
+        @keyframes floatBg {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.15); }
+        }
+
+        /* کانتینر اصلی اثر انگشت */
+        .fingerprint-container {
+            position: relative;
+            /* اندازه‌ی واکنش‌گرا: ۷۵٪ کوچک‌ترین بُعد صفحه، حداکثر ۴۲۰ پیکسل */
+            width: 75vmin;
+            height: 75vmin;
+            max-width: 420px;
+            max-height: 420px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 20px;
-            font-size: 40px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-
-        h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .link-preview {
-            background: #f5f5f5;
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 20px;
-            font-size: 11px;
-            color: #999;
-            word-break: break-all;
-            direction: ltr;
-            text-align: left;
-            border: 1px dashed #ddd;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
             cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s ease;
+        }
+
+        .fingerprint-container:active {
+            transform: scale(0.94);
+        }
+
+        /* حلقه‌های نورانی چرخان */
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            pointer-events: none;
+        }
+
+        .ring-1 {
+            width: 100%;
+            height: 100%;
+            border-top-color: #667eea;
+            border-right-color: #667eea;
+            animation: spin 3s linear infinite;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .ring-2 {
+            width: 84%;
+            height: 84%;
+            border-bottom-color: #764ba2;
+            border-left-color: #764ba2;
+            animation: spin 4s linear infinite reverse;
+            box-shadow: 0 0 15px rgba(118, 75, 162, 0.5);
+        }
+
+        .ring-3 {
+            width: 68%;
+            height: 68%;
+            border-top-color: #a78bfa;
+            border-left-color: #a78bfa;
+            animation: spin 2.5s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* هاله‌ی نورانی پشت اثر انگشت */
+        .glow {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.8) 0%, rgba(102, 126, 234, 0) 70%);
+            animation: pulse 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.25); opacity: 1; }
+        }
+
+        /* تصویر اثر انگشت */
+        .fingerprint-img {
+            width: 55%;
+            height: 55%;
+            object-fit: contain;
+            z-index: 5;
+            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.9));
             transition: all 0.3s ease;
-            text-decoration: none;
-            margin-bottom: 12px;
-            font-family: 'Vazirmatn', sans-serif;
+            pointer-events: none;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        /* حالت فعال (هنگام لمس) */
+        .fingerprint-container.active .fingerprint-img {
+            filter: drop-shadow(0 0 30px rgba(56, 239, 125, 1));
+            transform: scale(1.08);
         }
 
-        .btn-primary:hover {
-            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
-            transform: translateY(-2px);
+        .fingerprint-container.active .glow {
+            background: radial-gradient(circle, rgba(56, 239, 125, 0.9) 0%, rgba(56, 239, 125, 0) 70%);
         }
 
-        .btn-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        .fingerprint-container.active .ring-1 {
+            border-top-color: #38ef7d;
+            border-right-color: #38ef7d;
+            box-shadow: 0 0 25px rgba(56, 239, 125, 0.8);
         }
 
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-            border: 1px solid #e0e0e0;
+        .fingerprint-container.active .ring-2 {
+            border-bottom-color: #11998e;
+            border-left-color: #11998e;
         }
 
-        .btn-secondary:hover {
-            background: #e8e8e8;
-            transform: translateY(-2px);
+        .fingerprint-container.active .ring-3 {
+            border-top-color: #38ef7d;
+            border-left-color: #38ef7d;
         }
 
-        .btn-secondary:active {
-            transform: translateY(0);
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #333;
-            color: white;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 700;
+        /* موج انفجاری هنگام کلیک */
+        .ripple {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            border: 2px solid #38ef7d;
             opacity: 0;
+            pointer-events: none;
+        }
+
+        .ripple.go {
+            animation: rippleOut 0.8s ease-out forwards;
+        }
+
+        @keyframes rippleOut {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        /* انیمیشن تیک موفقیت */
+        .checkmark {
+            position: absolute;
+            width: 45%;
+            height: 45%;
+            z-index: 20;
+            opacity: 0;
+            transform: scale(0.5);
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
+        .checkmark.show {
             opacity: 1;
+            transform: scale(1);
         }
 
-        .toast.success {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        .checkmark svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 15px rgba(56, 239, 125, 1));
         }
 
-        .toast.error {
-            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+        .checkmark svg path {
+            stroke: #38ef7d;
+            stroke-width: 4;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 60;
+            stroke-dashoffset: 60;
         }
 
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #aaa;
+        .checkmark.show svg path {
+            animation: drawCheck 0.4s ease forwards 0.1s;
         }
 
-        .footer a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                padding: 30px 20px;
-            }
-            h1 {
-                font-size: 20px;
-            }
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="icon">💬</div>
-        <h1>دعوت به Olvid</h1>
-        <p>برای شروع گفتگو، روی دکمه زیر کلیک کنید. لینک دعوت به صورت خودکار کپی می‌شود و برنامه Olvid باز خواهد شد.</p>
+    <!-- کانتینر اثر انگشت -->
+    <div class="fingerprint-container" id="fingerprint">
+        <div class="ripple" id="ripple"></div>
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="glow"></div>
 
-        <div class="link-preview" id="linkPreview"></div>
+        <!-- تصویر اثر انگشت شما -->
+        <img
+            class="fingerprint-img"
+            src="https://uploadkon.ir/uploads/53d222_26finger.png"
+            alt="fingerprint"
+            draggable="false"
+        >
 
-        <button class="btn btn-primary" id="mainBtn" onclick="handleMainAction()">
-            📋 کپی لینک و باز کردن Olvid
-        </button>
-
-        <button class="btn btn-secondary" onclick="copyOnly()">
-            📄 فقط کپی لینک
-        </button>
-
-        <div class="footer">
-            ساخته شده با ❤️ برای <a href="https://olvid.io" target="_blank">Olvid</a>
+        <!-- تیک موفقیت -->
+        <div class="checkmark" id="checkmark">
+            <svg viewBox="0 0 64 64">
+                <path d="M 16 32 L 28 44 L 48 20"/>
+            </svg>
         </div>
     </div>
 
-    <div class="toast" id="toast"></div>
-
     <script>
-        // لینک دعوت
         const INVITE_LINK = "https://invitation.olvid.io/#AwAAAGcAAAAAWmh0dHBzOi8vc2VydmVyLm9sdmlkLmlvAABNr94IZ8tUMHhxNT3IuzaP0StqaeJXvjOzPDepCMrpWQEwmx1FkTSurZQBo0_mPVtHKeYAC5HCkP8sUXRIMEZrAgAAAAADbWhh";
 
-        // نمایش پیش‌نمایش لینک
-        document.getElementById('linkPreview').textContent = INVITE_LINK.substring(0, 60) + '...';
+        let isProcessing = false;
 
-        // تابع کپی در کلیپ‌بورد
+        // کپی در کلیپ‌بورد
         async function copyToClipboard(text) {
             try {
                 if (navigator.clipboard && window.isSecureContext) {
                     await navigator.clipboard.writeText(text);
                     return true;
                 } else {
-                    // روش قدیمی برای مرورگرهای قدیمی یا HTTP
                     const textArea = document.createElement('textarea');
                     textArea.value = text;
                     textArea.style.position = 'fixed';
@@ -234,75 +293,93 @@
                     return successful;
                 }
             } catch (err) {
-                console.error('خطا در کپی:', err);
+                console.error('Copy error:', err);
                 return false;
             }
         }
 
-        // نمایش پیام Toast
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast ' + type;
-            toast.classList.add('show');
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2500);
+        // لرزش کوتاه (اگر پشتیبانی شود)
+        function vibrate(pattern) {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
         }
 
-        // عمل اصلی: کپی + باز کردن برنامه
-        async function handleMainAction() {
-            const btn = document.getElementById('mainBtn');
-            const originalText = btn.innerHTML;
+        // عمل اصلی
+        async function handleTouch() {
+            if (isProcessing) return;
+            isProcessing = true;
 
-            // کپی لینک
-            const copied = await copyToClipboard(INVITE_LINK);
+            const container = document.getElementById('fingerprint');
+            const ripple = document.getElementById('ripple');
+            const checkmark = document.getElementById('checkmark');
 
-            if (copied) {
-                showToast('✅ لینک کپی شد!', 'success');
-            } else {
-                showToast('❌ خطا در کپی لینک', 'error');
-            }
+            // 1. افکت بصری: حالت فعال
+            container.classList.add('active');
+            vibrate([30, 30, 60]);
 
-            // تغییر موقت دکمه
-            btn.innerHTML = '⏳ در حال باز کردن Olvid...';
-            btn.disabled = true;
+            // 2. موج انفجاری
+            ripple.classList.remove('go');
+            void ripple.offsetWidth; // ریست انیمیشن
+            ripple.classList.add('go');
 
-            // تلاش برای باز کردن برنامه Olvid
-            // از Deep Link استفاده می‌کنیم
+            // 3. کپی لینک
+            await copyToClipboard(INVITE_LINK);
+
+            // 4. نمایش تیک موفقیت
             setTimeout(() => {
-                // روش 1: استفاده از window.location
-                window.location.href = INVITE_LINK;
+                checkmark.classList.add('show');
+                vibrate([60, 40, 60]);
+            }, 200);
 
-                // روش 2: اگر برنامه باز نشد، به صفحه نصب هدایت شود
+            // 5. باز کردن برنامه Olvid
+            setTimeout(() => {
+                try {
+                    window.location.href = INVITE_LINK;
+                } catch (e) {
+                    console.error(e);
+                }
+
+                // اگر مرورگر اجازه نداد، از iframe مخفی استفاده می‌کنیم
                 setTimeout(() => {
-                    // بررسی می‌کنیم که آیا صفحه هنوز visible است (برنامه باز نشده)
                     if (!document.hidden) {
-                        // اگر برنامه باز نشد، کاربر را به صفحه نصب Olvid هدایت می‌کنیم
-                        // اما چون نمی‌خواهیم تجربه کاربر خراب شود، فقط یک پیام نشان می‌دهیم
-                        showToast('اگر Olvid باز نشد، لطفاً آن را نصب کنید', 'error');
+                        const iframe = document.createElement('iframe');
+                        iframe.style.display = 'none';
+                        iframe.src = INVITE_LINK;
+                        document.body.appendChild(iframe);
+                        setTimeout(() => iframe.remove(), 3000);
                     }
+                }, 300);
+            }, 400);
 
-                    // برگرداندن دکمه به حالت اول
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }, 2500);
-            }, 500);
+            // 6. بازگرداندن به حالت اولیه
+            setTimeout(() => {
+                container.classList.remove('active');
+                checkmark.classList.remove('show');
+                isProcessing = false;
+            }, 2000);
         }
 
-        // فقط کپی لینک
-        async function copyOnly() {
-            const copied = await copyToClipboard(INVITE_LINK);
-            if (copied) {
-                showToast('✅ لینک با موفقیت کپی شد!', 'success');
-            } else {
-                showToast('❌ خطا در کپی لینک', 'error');
-            }
-        }
+        const fingerprintEl = document.getElementById('fingerprint');
 
-        // اگر کاربر روی لینک پیش‌نمایش کلیک کرد، آن را کپی کند
-        document.getElementById('linkPreview').addEventListener('click', copyOnly);
+        // پشتیبانی از لمس در موبایل (واکنش سریع‌تر)
+        fingerprintEl.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(0.94)';
+        }, { passive: false });
+
+        fingerprintEl.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            this.style.transform = '';
+            handleTouch();
+        }, { passive: false });
+
+        // پشتیبانی از کلیک در دسکتاپ
+        fingerprintEl.addEventListener('click', function(e) {
+            // جلوگیری از اجرای دوباره در موبایل (چون touchend اجرا شده)
+            if (e.pointerType === 'touch') return;
+            handleTouch();
+        });
     </script>
 
 </body>

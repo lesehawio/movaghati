@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>دانلود اپلیکیشن</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at 50% 40%, #1a1a2e 0%, #0a0a15 60%, #000000 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            position: relative;
+            color: #fff;
+        }
+
+        /* ذرات نورانی پس‌زمینه */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: floatBg 8s ease-in-out infinite;
+        }
+
+        body::before {
+            width: 300px;
+            height: 300px;
+            background: #667eea;
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            width: 350px;
+            height: 350px;
+            background: #764ba2;
+            bottom: -120px;
+            right: -120px;
+            animation-delay: -4s;
+        }
+
+        @keyframes floatBg {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.15); }
+        }
+
+        /* عنوان بالای صفحه */
+        .title {
+            font-size: 1.2rem;
+            color: #a78bfa;
+            margin-bottom: 20px;
+            text-align: center;
+            z-index: 10;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 35px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* کانتینر اصلی دانلود */
+        .download-container {
+            position: relative;
+            width: 75vmin;
+            height: 75vmin;
+            max-width: 420px;
+            max-height: 420px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s ease;
+        }
+
+        .download-container:active {
+            transform: scale(0.94);
+        }
+
+        /* حلقه‌های نورانی چرخان */
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            pointer-events: none;
+        }
+
+        .ring-1 {
+            width: 100%;
+            height: 100%;
+            border-top-color: #667eea;
+            border-right-color: #667eea;
+            animation: spin 3s linear infinite;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .ring-2 {
+            width: 84%;
+            height: 84%;
+            border-bottom-color: #764ba2;
+            border-left-color: #764ba2;
+            animation: spin 4s linear infinite reverse;
+            box-shadow: 0 0 15px rgba(118, 75, 162, 0.5);
+        }
+
+        .ring-3 {
+            width: 68%;
+            height: 68%;
+            border-top-color: #a78bfa;
+            border-left-color: #a78bfa;
+            animation: spin 2.5s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* هاله‌ی نورانی */
+        .glow {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.8) 0%, rgba(102, 126, 234, 0) 70%);
+            animation: pulse 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.25); opacity: 1; }
+        }
+
+        /* آیکون دانلود */
+        .download-icon {
+            width: 45%;
+            height: 45%;
+            z-index: 5;
+            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.9));
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .download-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #a78bfa;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* حالت فعال (هنگام لمس) */
+        .download-container.active .download-icon {
+            filter: drop-shadow(0 0 30px rgba(56, 239, 125, 1));
+            transform: scale(1.08);
+        }
+
+        .download-container.active .download-icon svg {
+            stroke: #38ef7d;
+        }
+
+        .download-container.active .glow {
+            background: radial-gradient(circle, rgba(56, 239, 125, 0.9) 0%, rgba(56, 239, 125, 0) 70%);
+        }
+
+        .download-container.active .ring-1 {
+            border-top-color: #38ef7d;
+            border-right-color: #38ef7d;
+            box-shadow: 0 0 25px rgba(56, 239, 125, 0.8);
+        }
+
+        .download-container.active .ring-2 {
+            border-bottom-color: #11998e;
+            border-left-color: #11998e;
+        }
+
+        .download-container.active .ring-3 {
+            border-top-color: #38ef7d;
+            border-left-color: #38ef7d;
+        }
+
+        /* موج انفجاری هنگام کلیک */
+        .ripple {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            border: 2px solid #38ef7d;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .ripple.go {
+            animation: rippleOut 0.8s ease-out forwards;
+        }
+
+        @keyframes rippleOut {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        /* انیمیشن تیک موفقیت */
+        .checkmark {
+            position: absolute;
+            width: 45%;
+            height: 45%;
+            z-index: 20;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+        }
+
+        .checkmark.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .checkmark svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 15px rgba(56, 239, 125, 1));
+        }
+
+        .checkmark svg path {
+            stroke: #38ef7d;
+            stroke-width: 4;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 60;
+            stroke-dashoffset: 60;
+        }
+
+        .checkmark.show svg path {
+            animation: drawCheck 0.4s ease forwards 0.1s;
+        }
+
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* متن راهنما زیر دکمه */
+        .hint {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            z-index: 10;
+            line-height: 1.8;
+        }
+
+        .hint strong {
+            color: #38ef7d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title">دانلود اپلیکیشن</div>
+    <div class="subtitle">برای دریافت فایل، روی دکمه‌ی زیر ضربه بزنید</div>
+
+    <!-- کانتینر دانلود -->
+    <div class="download-container" id="downloadBtn">
+        <div class="ripple" id="ripple"></div>
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="glow"></div>
+
+        <!-- آیکون دانلود -->
+        <div class="download-icon">
+            <svg viewBox="0 0 64 64">
+                <path d="M 32 12 L 32 44" />
+                <path d="M 18 32 L 32 46 L 46 32" />
+                <path d="M 14 52 L 50 52" />
+            </svg>
+        </div>
+
+        <!-- تیک موفقیت -->
+        <div class="checkmark" id="checkmark">
+            <svg viewBox="0 0 64 64">
+                <path d="M 16 32 L 28 44 L 48 20"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="hint">
+        پس از دانلود، برای نصب باید<br>
+        <strong>«نصب از منابع ناشناس»</strong> را فعال کنید
+    </div>
+
+    <script>
+        // ============================================
+        // ⚠️ اینجا آدرس فایل APK خود را قرار دهید
+        // ============================================
+        const APK_URL = "Comi.apk";
+        // اگر فایل APK در همان پوشه است، همین کافی است.
+        // اگر در جای دیگری است، آدرس کامل را بنویسید:
+        // const APK_URL = "https://example.com/Comi.apk";
+
+        let isProcessing = false;
+
+        // لرزش کوتاه (اگر پشتیبانی شود)
+        function vibrate(pattern) {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        }
+
+        // شروع دانلود فایل APK
+        function startDownload() {
+            // روش ۱: استفاده از تگ <a> برای دانلود مستقیم
+            const link = document.createElement('a');
+            link.href = APK_URL;
+            link.download = 'Comi.apk'; // نام فایل هنگام دانلود
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // روش ۲ (جایگزین): اگر روش بالا کار نکرد
+            // window.location.href = APK_URL;
+        }
+
+        // عمل اصلی هنگام کلیک
+        async function handleDownload() {
+            if (isProcessing) return;
+            isProcessing = true;
+
+            const container = document.getElementById('downloadBtn');
+            const ripple = document.getElementById('ripple');
+            const checkmark = document.getElementById('checkmark');
+
+            // 1. افکت بصری: حالت فعال
+            container.classList.add('active');
+            vibrate([30, 30, 60]);
+
+            // 2. موج انفجاری
+            ripple.classList.remove('go');
+            void ripple.offsetWidth;
+            ripple.classList.add('go');
+
+            // 3. شروع دانلود
+            try {
+                startDownload();
+            } catch (e) {
+                console.error('Download error:', e);
+            }
+
+            // 4. نمایش تیک موفقیت
+            setTimeout(() => {
+                checkmark.classList.add('show');
+                vibrate([60, 40, 60]);
+            }, 300);
+
+            // 5. بازگرداندن به حالت اولیه
+            setTimeout(() => {
+                container.classList.remove('active');
+                checkmark.classList.remove('show');
+                isProcessing = false;
+            }, 2500);
+        }
+
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // پشتیبانی از لمس در موبایل
+        downloadBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(0.94)';
+        }, { passive: false });
+
+        downloadBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            this.style.transform = '';
+            handleDownload();
+        }, { passive: false });
+
+        // پشتیبانی از کلیک در دسکتاپ
+        downloadBtn.addEventListener('click', function(e) {
+            if (e.pointerType === 'touch') return;
+            handleDownload();
+        });
+    </script>
+
+</body>
+</html>

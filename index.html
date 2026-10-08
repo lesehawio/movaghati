@@ -16,6 +16,7 @@
         html, body {
             height: 100%;
             overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
         }
 
         body {
@@ -23,85 +24,189 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle at 50% 40%, #1a1a2e 0%, #0a0a15 60%, #000000 100%);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #050510;
             position: relative;
             color: #fff;
         }
 
-        /* ذرات نورانی پس‌زمینه */
-        body::before,
-        body::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
+        /* ===== پس‌زمینه‌ی متحرک ===== */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.35) 0%, transparent 45%),
+                radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.35) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(56, 239, 125, 0.15) 0%, transparent 55%),
+                linear-gradient(135deg, #050510 0%, #0a0a1f 50%, #050510 100%);
+            z-index: 0;
+            animation: bgShift 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgShift {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.1) rotate(3deg); }
+        }
+
+        /* ستاره‌های چشمک‌زن */
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
             pointer-events: none;
-            animation: floatBg 8s ease-in-out infinite;
         }
 
-        body::before {
-            width: 300px;
-            height: 300px;
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* ذرات شناور بزرگ */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb-1 {
+            width: 280px; height: 280px;
             background: #667eea;
-            top: -100px;
-            left: -100px;
+            top: -80px; left: -80px;
+            animation: float1 10s ease-in-out infinite;
         }
 
-        body::after {
-            width: 350px;
-            height: 350px;
+        .orb-2 {
+            width: 320px; height: 320px;
             background: #764ba2;
-            bottom: -120px;
-            right: -120px;
-            animation-delay: -4s;
+            bottom: -100px; right: -100px;
+            animation: float2 12s ease-in-out infinite;
         }
 
-        @keyframes floatBg {
+        .orb-3 {
+            width: 200px; height: 200px;
+            background: #38ef7d;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            animation: float3 8s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, -30px) scale(1.15); }
+            50% { transform: translate(40px, 30px) scale(1.2); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-40px, -30px) scale(1.2); }
+        }
+        @keyframes float3 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; }
+            50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.3; }
         }
 
-        /* عنوان بالای صفحه */
-        .title {
-            font-size: 1.2rem;
-            color: #a78bfa;
-            margin-bottom: 20px;
-            text-align: center;
+        /* ===== محتوا ===== */
+        .content {
+            position: relative;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* لوگو / آیکون بالا */
+        .app-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+            animation: fadeDown 0.8s ease;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .app-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #38ef7d;
+            box-shadow: 0 0 10px #38ef7d;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .app-badge span {
+            font-size: 0.75rem;
+            color: #a78bfa;
             letter-spacing: 1px;
-            text-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
+        }
+
+        /* عنوان */
+        .title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            text-align: center;
+            background: linear-gradient(135deg, #a78bfa 0%, #667eea 50%, #38ef7d 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            animation: fadeDown 0.8s ease 0.1s backwards;
+            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
         }
 
         .subtitle {
             font-size: 0.85rem;
             color: #888;
-            margin-bottom: 35px;
             text-align: center;
-            z-index: 10;
+            margin-bottom: 35px;
+            animation: fadeDown 0.8s ease 0.2s backwards;
         }
 
-        /* کانتینر اصلی دانلود */
-        .download-container {
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== کانتینر دکمه‌ی دانلود ===== */
+        .download-wrapper {
             position: relative;
-            width: 75vmin;
-            height: 75vmin;
-            max-width: 420px;
-            max-height: 420px;
+            width: 65vmin;
+            height: 65vmin;
+            max-width: 340px;
+            max-height: 340px;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: transform 0.2s ease;
+            animation: fadeUp 0.9s ease 0.3s backwards;
         }
 
-        .download-container:active {
-            transform: scale(0.94);
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* حلقه‌های نورانی چرخان */
+        /* حلقه‌های چرخان */
         .ring {
             position: absolute;
             border-radius: 50%;
@@ -110,30 +215,37 @@
         }
 
         .ring-1 {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border-top-color: #667eea;
             border-right-color: #667eea;
             animation: spin 3s linear infinite;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 0 25px rgba(102, 126, 234, 0.6), inset 0 0 25px rgba(102, 126, 234, 0.2);
         }
 
         .ring-2 {
-            width: 84%;
-            height: 84%;
+            width: 85%; height: 85%;
             border-bottom-color: #764ba2;
             border-left-color: #764ba2;
             animation: spin 4s linear infinite reverse;
-            box-shadow: 0 0 15px rgba(118, 75, 162, 0.5);
+            box-shadow: 0 0 20px rgba(118, 75, 162, 0.5);
         }
 
         .ring-3 {
-            width: 68%;
-            height: 68%;
+            width: 70%; height: 70%;
             border-top-color: #a78bfa;
             border-left-color: #a78bfa;
             animation: spin 2.5s linear infinite;
-            opacity: 0.7;
+            opacity: 0.8;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
+        }
+
+        .ring-4 {
+            width: 55%; height: 55%;
+            border-bottom-color: #38ef7d;
+            border-right-color: #38ef7d;
+            animation: spin 5s linear infinite reverse;
+            opacity: 0.6;
+            box-shadow: 0 0 15px rgba(56, 239, 125, 0.4);
         }
 
         @keyframes spin {
@@ -144,105 +256,159 @@
         /* هاله‌ی نورانی */
         .glow {
             position: absolute;
-            width: 60%;
-            height: 60%;
+            width: 55%; height: 55%;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.8) 0%, rgba(102, 126, 234, 0) 70%);
-            animation: pulse 2s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.9) 0%, rgba(102, 126, 234, 0) 70%);
+            animation: pulse 2.5s ease-in-out infinite;
             pointer-events: none;
+            filter: blur(20px);
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.25); opacity: 1; }
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.3); opacity: 1; }
         }
 
-        /* آیکون دانلود */
-        .download-icon {
-            width: 45%;
-            height: 45%;
-            z-index: 5;
-            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.9));
+        /* دکمه‌ی مرکزی */
+        .download-btn {
+            position: relative;
+            width: 38%; height: 38%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #38ef7d 100%);
+            background-size: 200% 200%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow:
+                0 0 40px rgba(102, 126, 234, 0.7),
+                0 0 80px rgba(118, 75, 162, 0.4),
+                inset 0 -6px 15px rgba(0, 0, 0, 0.3),
+                inset 0 6px 15px rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
-            pointer-events: none;
+            animation: gradientMove 4s ease infinite, floatBtn 3s ease-in-out infinite;
+            z-index: 5;
+            overflow: hidden;
         }
 
-        .download-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: #a78bfa;
-            stroke-width: 3;
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes floatBtn {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .download-btn:active {
+            transform: scale(0.92) translateY(0);
+        }
+
+        .download-btn svg {
+            width: 45%; height: 45%;
+            stroke: #fff;
+            stroke-width: 3.5;
             fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+            z-index: 2;
+            transition: all 0.3s ease;
         }
 
-        /* حالت فعال (هنگام لمس) */
-        .download-container.active .download-icon {
-            filter: drop-shadow(0 0 30px rgba(56, 239, 125, 1));
-            transform: scale(1.08);
+        /* حالت فعال */
+        .download-wrapper.active .download-btn {
+            background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+            box-shadow: 0 0 60px rgba(56, 239, 125, 0.9), inset 0 0 20px rgba(255,255,255,0.3);
+            animation: gradientMove 4s ease infinite;
         }
 
-        .download-container.active .download-icon svg {
-            stroke: #38ef7d;
-        }
-
-        .download-container.active .glow {
+        .download-wrapper.active .glow {
             background: radial-gradient(circle, rgba(56, 239, 125, 0.9) 0%, rgba(56, 239, 125, 0) 70%);
         }
 
-        .download-container.active .ring-1 {
-            border-top-color: #38ef7d;
-            border-right-color: #38ef7d;
-            box-shadow: 0 0 25px rgba(56, 239, 125, 0.8);
+        .download-wrapper.active .ring-1 {
+            border-top-color: #38ef7d; border-right-color: #38ef7d;
+            box-shadow: 0 0 30px rgba(56, 239, 125, 0.9);
+        }
+        .download-wrapper.active .ring-2 {
+            border-bottom-color: #11998e; border-left-color: #11998e;
+        }
+        .download-wrapper.active .ring-3 {
+            border-top-color: #38ef7d; border-left-color: #38ef7d;
+        }
+        .download-wrapper.active .ring-4 {
+            border-bottom-color: #a7ff83; border-right-color: #a7ff83;
         }
 
-        .download-container.active .ring-2 {
-            border-bottom-color: #11998e;
-            border-left-color: #11998e;
-        }
-
-        .download-container.active .ring-3 {
-            border-top-color: #38ef7d;
-            border-left-color: #38ef7d;
-        }
-
-        /* موج انفجاری هنگام کلیک */
+        /* موج انفجاری */
         .ripple {
             position: absolute;
-            width: 60%;
-            height: 60%;
+            width: 40%; height: 40%;
             border-radius: 50%;
             border: 2px solid #38ef7d;
             opacity: 0;
             pointer-events: none;
+            z-index: 4;
         }
 
         .ripple.go {
-            animation: rippleOut 0.8s ease-out forwards;
+            animation: rippleOut 1s ease-out forwards;
         }
 
         @keyframes rippleOut {
-            0% {
-                transform: scale(0.8);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(2.5);
-                opacity: 0;
-            }
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
         }
 
-        /* انیمیشن تیک موفقیت */
+        /* ذرات نورانی هنگام کلیک */
+        .particle {
+            position: absolute;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #38ef7d;
+            box-shadow: 0 0 10px #38ef7d;
+            pointer-events: none;
+            z-index: 6;
+            opacity: 0;
+        }
+
+        .particle.go {
+            animation: particleBurst 1s ease-out forwards;
+        }
+
+        @keyframes particleBurst {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        /* تیک موفقیت */
         .checkmark {
             position: absolute;
-            width: 45%;
-            height: 45%;
+            width: 38%; height: 38%;
             z-index: 20;
             opacity: 0;
             transform: scale(0.5);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .checkmark.show {
@@ -251,14 +417,13 @@
         }
 
         .checkmark svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 15px rgba(56, 239, 125, 1));
+            width: 100%; height: 100%;
+            filter: drop-shadow(0 0 20px rgba(56, 239, 125, 1));
         }
 
         .checkmark svg path {
             stroke: #38ef7d;
-            stroke-width: 4;
+            stroke-width: 5;
             fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -267,107 +432,262 @@
         }
 
         .checkmark.show svg path {
-            animation: drawCheck 0.4s ease forwards 0.1s;
+            animation: drawCheck 0.5s ease forwards 0.15s;
         }
 
         @keyframes drawCheck {
             to { stroke-dashoffset: 0; }
         }
 
-        /* متن راهنما زیر دکمه */
+        /* نوار پیشرفت */
+        .progress-bar {
+            position: absolute;
+            bottom: -30px;
+            width: 70%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-bar.show {
+            opacity: 1;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #667eea, #38ef7d);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px #38ef7d;
+        }
+
+        /* ===== راهنما پایین ===== */
         .hint {
-            margin-top: 30px;
-            font-size: 0.8rem;
-            color: #666;
+            position: absolute;
+            bottom: 30px;
+            left: 0; right: 0;
             text-align: center;
+            font-size: 0.78rem;
+            color: #666;
             z-index: 10;
-            line-height: 1.8;
+            line-height: 1.9;
+            padding: 0 20px;
+            animation: fadeUp 1s ease 0.5s backwards;
         }
 
         .hint strong {
             color: #38ef7d;
+            font-weight: 600;
+        }
+
+        .hint .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: rgba(56, 239, 125, 0.1);
+            border: 1px solid rgba(56, 239, 125, 0.3);
+            color: #38ef7d;
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+
+        /* ریسپانسیو */
+        @media (max-height: 700px) {
+            .title { font-size: 1.3rem; }
+            .subtitle { margin-bottom: 20px; font-size: 0.78rem; }
+            .download-wrapper { width: 55vmin; height: 55vmin; }
+            .hint { font-size: 0.7rem; bottom: 15px; }
+            .app-badge { margin-bottom: 12px; padding: 6px 14px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="title">دانلود اپلیکیشن</div>
-    <div class="subtitle">برای دریافت فایل، روی دکمه‌ی زیر ضربه بزنید</div>
+    <!-- پس‌زمینه -->
+    <div class="bg-gradient"></div>
+    <div class="stars" id="stars"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-    <!-- کانتینر دانلود -->
-    <div class="download-container" id="downloadBtn">
-        <div class="ripple" id="ripple"></div>
-        <div class="ring ring-1"></div>
-        <div class="ring ring-2"></div>
-        <div class="ring ring-3"></div>
-        <div class="glow"></div>
+    <!-- محتوا -->
+    <div class="content">
 
-        <!-- آیکون دانلود -->
-        <div class="download-icon">
-            <svg viewBox="0 0 64 64">
-                <path d="M 32 12 L 32 44" />
-                <path d="M 18 32 L 32 46 L 46 32" />
-                <path d="M 14 52 L 50 52" />
-            </svg>
+        <!-- نشان بالای صفحه -->
+        <div class="app-badge">
+            <div class="dot"></div>
+            <span>نسخه‌ی جدید منتشر شد</span>
         </div>
 
-        <!-- تیک موفقیت -->
-        <div class="checkmark" id="checkmark">
-            <svg viewBox="0 0 64 64">
-                <path d="M 16 32 L 28 44 L 48 20"/>
-            </svg>
+        <h1 class="title">دانلود اپلیکیشن</h1>
+        <p class="subtitle">برای دریافت فایل، روی دکمه ضربه بزنید</p>
+
+        <!-- کانتینر دانلود -->
+        <div class="download-wrapper" id="downloadWrapper">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+            <div class="ring ring-4"></div>
+            <div class="glow"></div>
+
+            <!-- دکمه‌ی دانلود -->
+            <div class="download-btn" id="downloadBtn">
+                <svg viewBox="0 0 64 64">
+                    <path d="M 32 12 L 32 44" />
+                    <path d="M 18 32 L 32 46 L 46 32" />
+                    <path d="M 14 52 L 50 52" />
+                </svg>
+            </div>
+
+            <!-- موج و ذرات -->
+            <div class="ripple" id="ripple"></div>
+            <div class="particle" id="particle"></div>
+
+            <!-- تیک موفقیت -->
+            <div class="checkmark" id="checkmark">
+                <svg viewBox="0 0 64 64">
+                    <path d="M 16 32 L 28 44 L 48 20"/>
+                </svg>
+            </div>
+
+            <!-- نوار پیشرفت -->
+            <div class="progress-bar" id="progressBar">
+                <div class="fill" id="progressFill"></div>
+            </div>
         </div>
+
     </div>
 
+    <!-- راهنما -->
     <div class="hint">
         پس از دانلود، برای نصب باید<br>
         <strong>«نصب از منابع ناشناس»</strong> را فعال کنید
+        <br>
+        <span class="badge">اندروید ۶.۰ به بالا</span>
     </div>
 
     <script>
         // ============================================
-        // ⚠️ اینجا آدرس فایل APK خود را قرار دهید
+        // ⚠️ آدرس فایل APK خود را اینجا قرار دهید
         // ============================================
         const APK_URL = "Comi.apk";
-        // اگر فایل APK در همان پوشه است، همین کافی است.
-        // اگر در جای دیگری است، آدرس کامل را بنویسید:
-        // const APK_URL = "https://example.com/Comi.apk";
+        // مثال: const APK_URL = "https://example.com/Comi.apk";
+
+        // ===== ساخت ستاره‌های چشمک‌زن =====
+        (function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const count = 60;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 2.5 + 0.5;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = (Math.random() * 3) + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        })();
 
         let isProcessing = false;
 
-        // لرزش کوتاه (اگر پشتیبانی شود)
         function vibrate(pattern) {
-            if (navigator.vibrate) {
-                navigator.vibrate(pattern);
+            if (navigator.vibrate) navigator.vibrate(pattern);
+        }
+
+        // ===== انفجار ذرات نورانی =====
+        function burstParticles(container) {
+            const colors = ['#38ef7d', '#667eea', '#a78bfa', '#11998e', '#ffffff'];
+            const particleCount = 14;
+            const rect = container.getBoundingClientRect();
+
+            for (let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const angle = (Math.PI * 2 * i) / particleCount;
+                const distance = 90 + Math.random() * 80;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+
+                p.style.setProperty('--tx', tx + 'px');
+                p.style.setProperty('--ty', ty + 'px');
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                p.style.boxShadow = `0 0 10px ${p.style.background}`;
+                p.style.left = '50%';
+                p.style.top = '50%';
+                p.style.marginLeft = '-3px';
+                p.style.marginTop = '-3px';
+                p.style.position = 'absolute';
+
+                container.appendChild(p);
+
+                // اجرای انیمیشن
+                requestAnimationFrame(() => {
+                    p.classList.add('go');
+                });
+
+                // حذف بعد از انیمیشن
+                setTimeout(() => p.remove(), 1100);
             }
         }
 
-        // شروع دانلود فایل APK
+        // ===== شروع دانلود =====
         function startDownload() {
-            // روش ۱: استفاده از تگ <a> برای دانلود مستقیم
-            const link = document.createElement('a');
-            link.href = APK_URL;
-            link.download = 'Comi.apk'; // نام فایل هنگام دانلود
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // روش ۲ (جایگزین): اگر روش بالا کار نکرد
-            // window.location.href = APK_URL;
+            try {
+                const link = document.createElement('a');
+                link.href = APK_URL;
+                link.download = 'Comi.apk';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                return true;
+            } catch (e) {
+                console.error('Download error:', e);
+                // روش جایگزین
+                window.location.href = APK_URL;
+                return false;
+            }
         }
 
-        // عمل اصلی هنگام کلیک
+        // ===== نوار پیشرفت مصنوعی =====
+        function animateProgress(fillEl, barEl) {
+            barEl.classList.add('show');
+            fillEl.style.width = '0%';
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15 + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        barEl.classList.remove('show');
+                        fillEl.style.width = '0%';
+                    }, 800);
+                }
+                fillEl.style.width = progress + '%';
+            }, 150);
+        }
+
+        // ===== رویداد اصلی =====
         async function handleDownload() {
             if (isProcessing) return;
             isProcessing = true;
 
-            const container = document.getElementById('downloadBtn');
+            const wrapper = document.getElementById('downloadWrapper');
             const ripple = document.getElementById('ripple');
             const checkmark = document.getElementById('checkmark');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
 
-            // 1. افکت بصری: حالت فعال
-            container.classList.add('active');
+            // 1. حالت فعال
+            wrapper.classList.add('active');
             vibrate([30, 30, 60]);
 
             // 2. موج انفجاری
@@ -375,46 +695,49 @@
             void ripple.offsetWidth;
             ripple.classList.add('go');
 
-            // 3. شروع دانلود
-            try {
-                startDownload();
-            } catch (e) {
-                console.error('Download error:', e);
-            }
+            // 3. انفجار ذرات
+            burstParticles(wrapper);
 
-            // 4. نمایش تیک موفقیت
+            // 4. شروع دانلود
+            startDownload();
+
+            // 5. نمایش نوار پیشرفت
+            setTimeout(() => animateProgress(progressFill, progressBar), 200);
+
+            // 6. نمایش تیک موفقیت
             setTimeout(() => {
                 checkmark.classList.add('show');
                 vibrate([60, 40, 60]);
-            }, 300);
+            }, 400);
 
-            // 5. بازگرداندن به حالت اولیه
+            // 7. بازگشت به حالت اولیه
             setTimeout(() => {
-                container.classList.remove('active');
+                wrapper.classList.remove('active');
                 checkmark.classList.remove('show');
                 isProcessing = false;
-            }, 2500);
+            }, 2800);
         }
 
-        const downloadBtn = document.getElementById('downloadBtn');
+        const wrapperEl = document.getElementById('downloadWrapper');
 
-        // پشتیبانی از لمس در موبایل
-        downloadBtn.addEventListener('touchstart', function(e) {
+        // پشتیبانی از لمس
+        wrapperEl.addEventListener('touchstart', function(e) {
             e.preventDefault();
-            this.style.transform = 'scale(0.94)';
         }, { passive: false });
 
-        downloadBtn.addEventListener('touchend', function(e) {
+        wrapperEl.addEventListener('touchend', function(e) {
             e.preventDefault();
-            this.style.transform = '';
             handleDownload();
         }, { passive: false });
 
-        // پشتیبانی از کلیک در دسکتاپ
-        downloadBtn.addEventListener('click', function(e) {
+        // پشتیبانی از کلیک
+        wrapperEl.addEventListener('click', function(e) {
             if (e.pointerType === 'touch') return;
             handleDownload();
         });
+
+        // جلوگیری از زوم دو‌انگشتی
+        document.addEventListener('gesturestart', e => e.preventDefault());
     </script>
 
 </body>
